@@ -17,6 +17,8 @@ import { IMenuOption } from "../types/app.type";
 
 const classes = {
   menu: (theme: Theme) => ({
+    background: "rgba(232, 235, 255, 0.60)",
+    backdropFilter: "blur(2px)",
     "& .MuiPaper-root": {
       position: "relative" as const,
       "&::before": {
