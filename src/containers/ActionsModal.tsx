@@ -1,31 +1,58 @@
 /** @jsxRuntime classic /
 /* @jsx jsx */
 /** @jsxImportSource @emotion/react */
-import { IconButton, Menu, MenuItem, alpha } from "@mui/material";
+import {
+  Divider,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+  alpha
+} from "@mui/material";
 import { Theme } from "@emotion/react";
 import { MouseEvent, useState } from "react";
+import { LAYOUT_CONTENT_PADDING } from "../utils/constants";
 
 const classes = {
   menu: (theme: Theme) => ({
     "& .MuiPaper-root": {
+      position: "relative" as const,
+      "&::before": {
+        content: '" "',
+        position: "absolute" as const,
+        inset: 0,
+        borderTopLeftRadius: 12,
+        borderTopRightRadius: 12,
+        height: 3,
+        top: 0,
+        borderImageSlice: 1,
+        backdropFilter: "blur(20px)",
+        background: `
+          linear-gradient(
+            90.7deg, 
+            rgba(232, 235, 255, 0.5) -1.45%, 
+            rgba(208, 185, 255, 0.5) 15.95%, 
+            rgba(172, 108, 255, 0.5) 29.51%, 
+            rgba(158, 173, 250, 0.5) 51.8%, 
+            rgba(61, 90, 241, 0.5) 94.87%)
+          border-box
+        `
+      },
       borderRadius: 6,
+      boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+      backgroundColor: "#fff",
+      zIndex: 1000,
       marginTop: theme.spacing(1),
-      minWidth: 180,
+      minWidth: `calc(100vw - ${LAYOUT_CONTENT_PADDING}px)`,
       color:
         theme.palette.mode === "light"
           ? "rgb(55, 65, 81)"
           : theme.palette.grey[300],
-      boxShadow:
-        "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
       "& .MuiMenu-list": {
-        padding: "4px 0"
+        padding: "2px 0"
       },
       "& .MuiMenuItem-root": {
-        "& .MuiSvgIcon-root": {
-          fontSize: 18,
-          color: theme.palette.text.secondary,
-          marginRight: theme.spacing(1.5)
-        },
         "&:active": {
           backgroundColor: alpha(
             theme.palette.primary.main,
@@ -34,7 +61,14 @@ const classes = {
         }
       }
     }
-  })
+  }),
+  header: {
+    paddingTop: 19,
+    paddingBottom: 7,
+    "&:hover": {
+      backgroundColor: "transparent"
+    }
+  }
 };
 
 const ActionsModal = () => {
@@ -69,9 +103,32 @@ const ActionsModal = () => {
         onClose={handleClose}
         css={classes.menu}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem disableRipple disableTouchRipple css={classes.header}>
+          <Stack spacing={0.5}>
+            <Typography>Actions</Typography>
+            <Typography
+              css={{ fontWeight: 700, lineHeight: 1.36 }}
+              variant="h2"
+            >
+              What we do?
+            </Typography>
+          </Stack>
+        </MenuItem>
+        <Divider />
+        <MenuItem
+          onClick={handleClose}
+          className="grey800"
+          disableRipple
+          css={{
+            fontSize: 14,
+            paddingTop: 9,
+            paddingBottom: 9,
+            fontWeight: 400
+          }}
+        >
           Edit name
         </MenuItem>
+        <Divider />
       </Menu>
     </div>
   );
