@@ -28,7 +28,7 @@ const Home = () => {
         css={classes.content}
         className="stretchSelf flexRow center spaceBetween"
       >
-        <Typography variant="h3">Click the menus right</Typography>
+        <Typography variant="h3">Hello</Typography>
         <ActionsModal title="What we do?" menus={menus} />
       </div>
       <Footer />

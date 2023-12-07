@@ -45,7 +45,6 @@ const classes = {
       backgroundColor: "#fff",
       zIndex: 1000,
       marginTop: theme.spacing(1),
-      minWidth: `calc(100vw - ${LAYOUT_CONTENT_PADDING}px)`,
       color:
         theme.palette.mode === "light"
           ? "rgb(55, 65, 81)"
@@ -60,6 +59,12 @@ const classes = {
             theme.palette.action.selectedOpacity
           )
         }
+      },
+      [theme.breakpoints.down("md")]: {
+        minWidth: `calc(100vw - ${LAYOUT_CONTENT_PADDING}px)`
+      },
+      [theme.breakpoints.up("md")]: {
+        minWidth: 500
       }
     }
   }),
