@@ -6,6 +6,11 @@ export interface ISelectOption<V = any> {
   icon?: ReactNode | string;
 }
 
+export interface IMenuOption<V = any> extends ISelectOption<V> {
+  onClick: (value?: V) => void;
+  value?: V;
+}
+
 export interface ISwitchOption extends ISelectOption {
   checked?: boolean;
 }

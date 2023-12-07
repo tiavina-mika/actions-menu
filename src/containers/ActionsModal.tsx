@@ -11,8 +11,9 @@ import {
   alpha
 } from "@mui/material";
 import { Theme } from "@emotion/react";
-import { MouseEvent, useState } from "react";
+import { Fragment, MouseEvent, useState } from "react";
 import { LAYOUT_CONTENT_PADDING } from "../utils/constants";
+import { IMenuOption } from "../types/app.type";
 
 const classes = {
   menu: (theme: Theme) => ({
@@ -71,7 +72,11 @@ const classes = {
   }
 };
 
-const ActionsModal = () => {
+type Props = {
+  menus: IMenuOption[];
+  title: string;
+};
+const ActionsModal = ({ title, menus = [] }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -110,25 +115,32 @@ const ActionsModal = () => {
               css={{ fontWeight: 700, lineHeight: 1.36 }}
               variant="h2"
             >
-              What we do?
+              {title}
             </Typography>
           </Stack>
         </MenuItem>
         <Divider />
-        <MenuItem
-          onClick={handleClose}
-          className="grey800"
-          disableRipple
-          css={{
-            fontSize: 14,
-            paddingTop: 9,
-            paddingBottom: 9,
-            fontWeight: 400
-          }}
-        >
-          Edit name
-        </MenuItem>
-        <Divider />
+        {menus.map((menu: IMenuOption, index: number) => (
+          <Fragment key={menu.label + index}>
+            <MenuItem
+              className="grey800"
+              disableRipple
+              css={{
+                fontSize: 14,
+                paddingTop: 9,
+                paddingBottom: 9,
+                fontWeight: 400
+              }}
+              onClick={() => {
+                handleClose();
+                menu.onClick(menu.value);
+              }}
+            >
+              {menu.label}
+            </MenuItem>
+            <Divider />
+          </Fragment>
+        ))}
       </Menu>
     </div>
   );

@@ -16,6 +16,12 @@ const classes = {
 };
 
 const Home = () => {
+  const menus = [
+    {
+      label: "Edit name",
+      onClick: () => console.log("clicked")
+    }
+  ];
   return (
     <div className="flexColumn spaceBetween" css={classes.root}>
       <div
@@ -25,7 +31,7 @@ const Home = () => {
         <Typography variant="h3">
           A project starter for Material UI 5, Emotion and TypeScript
         </Typography>
-        <ActionsModal />
+        <ActionsModal title="What we do?" menus={menus} />
       </div>
       <Footer />
     </div>
