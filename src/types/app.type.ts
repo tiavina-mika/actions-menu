@@ -6,7 +6,7 @@ export interface ISelectOption<V = any> {
   icon?: ReactNode | string;
 }
 
-export interface IMenuOption<V = any> extends ISelectOption<V> {
+export interface IMenuOption<V = any> extends Omit<ISelectOption<V>, "value"> {
   onClick: (value?: V) => void;
   value?: V;
 }
